@@ -1,4 +1,4 @@
-# SFML-Game-engine-framework-thingy
+# SFML-Game-engine
 A collection of classes, functions, and helpful utilities meant to aid in c++
 
 So far, i've inlcuded:
