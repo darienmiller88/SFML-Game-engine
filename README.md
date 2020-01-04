@@ -1,11 +1,11 @@
 # SFML-Game-engine
-A collection of classes, functions, and helpful utilities meant to aid in c++
+A collection of classes, functions, and helpful utilities meant to aid in c++ game development using the SFML graphics library.
 
-So far, i've inlcuded:
+So far, I've inlcuded:
 
 - Animations
 - math stuff
-- vertical slider
+- GUI elements
 - game state manager
 - resource manager 
 
