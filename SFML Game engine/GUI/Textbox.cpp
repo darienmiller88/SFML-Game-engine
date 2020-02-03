@@ -2,6 +2,7 @@
 #include "SFML Game Engine/Math stuff/Math.h"
 #include <iostream>
 
+//This comment is a change made from my desktop and pushed by git!
 Textbox::Textbox(const sf::Vector2f &initialSize, const sf::Vector2f &position, const sf::Font &font,
 const std::string &text) : OUTLINE_THICKNESS(5.f), FRAME_LIMIT(500), textBox(initialSize), defaultText(text, font, 45), 
 typedText("", font, 45), backgroundTextBox({initialSize.x + OUTLINE_THICKNESS, initialSize.y + OUTLINE_THICKNESS}),
