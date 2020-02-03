@@ -2,6 +2,7 @@
 #include "SFML Game Engine/Asset Manager/AssetManager.cpp"
 #include "SFML Game Engine/Math stuff/Math.h"
 
+//Volume stuff comment lol
 VolumeSlider::VolumeSlider(const std::string &musicFile, const sf::Vector2f &position, const sf::Vector2f &size) :
 volumeBody({ size.x - size.y, size.y }), leftEndPoint(size.y / 2.f), rightEndPoint(size.y / 2.f), slider(size.y * 2.5f),
 percentageDisplay("100%", AssetManager::get().getDefaultFont(Fonts::ARIAL_ITALIC), 20)
