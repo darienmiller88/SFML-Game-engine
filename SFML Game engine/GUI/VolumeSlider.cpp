@@ -1,6 +1,6 @@
 #include "VolumeSlider.h"
-#include "SFML Game Engine/Asset Manager/AssetManager.cpp"
-#include "SFML Game Engine/Math stuff/Math.h"
+#include "..//Asset Manager//AssetManager.cpp"
+#include "..//Math stuff//Math.h"
 
 //Volume stuff comment lol
 VolumeSlider::VolumeSlider(const std::string &musicFile, const sf::Vector2f &position, const sf::Vector2f &size) :

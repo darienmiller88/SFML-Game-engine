@@ -1,5 +1,5 @@
 #include "RectangularButton.h"
-#include "UtilityFunctions.h"
+#include "..//Math stuff//Math.h"
 
 RectangularButton::RectangularButton(const sf::Text &text, const dm::ColorPack& cPack, const sf::Vector2f &position) : 
 Button(text), defaultColor(std::get<0>(cPack)), hoverColor(std::get<1>(cPack)), clickColor(std::get<2>(cPack)), 

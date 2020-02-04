@@ -3,7 +3,7 @@
 #include <memory>
 #include <iostream>
 #include <functional>
-#include "UtilityFunctions.h"
+#include "..//Math stuff//Math.h"
 
 namespace dm {
 	using TexturePack = std::tuple<sf::Texture, sf::Texture, sf::Texture>;

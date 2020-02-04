@@ -1,5 +1,5 @@
 #include "Textbox.h"
-#include "SFML Game Engine/Math stuff/Math.h"
+#include "..//Math stuff//Math.h"
 #include <iostream>
 
 //This comment is a change made from my desktop and pushed by git!

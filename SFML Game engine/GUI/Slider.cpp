@@ -1,5 +1,5 @@
 #include "Slider.h"
-#include "sfml game engine/Math stuff/Math.h"
+#include "..//Math stuff//Math.h"
 #include <iostream>
 
 Slider::Slider(const sf::RenderWindow &window) : 
