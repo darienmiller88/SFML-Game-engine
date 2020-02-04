@@ -1,5 +1,6 @@
 #include "Timer.h"
 
+//test comment
 Timer::Timer() : wasPaused(false), currentState(States::STOPPED){
 }
 
