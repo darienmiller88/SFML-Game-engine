@@ -148,8 +148,10 @@ void Textbox::handleText(sf::Event e){
 			
 		else if (e.key.code == sf::Keyboard::Space)
 			word += " ";
-		else if (e.key.code == sf::Keyboard::Enter)
+		else if (e.key.code == sf::Keyboard::Enter) {
 			onEnterCallback();
+			word.clear();
+		}
 	}
 
 	typedText.setString(word);
