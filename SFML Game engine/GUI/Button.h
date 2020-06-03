@@ -24,7 +24,7 @@ namespace dm {
 			*
 			* @param text - The text that will reside on the button. 
 			*/
-			Button(const sf::Text &text) : buttonText(text), callBack([](){}), isResizing(true), resizingScale(1.f, 1.f){
+			Button(const sf::Text &text) : buttonText(text), callBack([](){}), isResizing(true), resizingScale(1.5f, 1.5f){
 				buttonText.setOrigin(buttonText.getGlobalBounds().width / 2.f, buttonText.getGlobalBounds().height / 2.f + 3);
 			}
 
@@ -32,16 +32,11 @@ namespace dm {
 				callBack = func;
 			}
 
-			void drawButton(sf::RenderWindow &window) {
-				window.draw(buttonBody);
-				window.draw(buttonText);
-			}
-
-			const std::string getButtonText() const {
+			const std::string &getButtonText() const {
 				return buttonText.getString();
 			}
 
-			const sf::Vector2f getResizingScale() const {
+			const sf::Vector2f &getResizingScale() const {
 				return resizingScale;
 			}
 
@@ -54,6 +49,15 @@ namespace dm {
 			*/
 			void enableResizing(bool isResizing) {
 				this->isResizing = isResizing;
+			}
+
+			void setTextColor(const sf::Color &color) {
+				buttonText.setFillColor(color);
+			}
+
+			virtual void drawButton(sf::RenderWindow& window) {
+				window.draw(buttonBody);
+				window.draw(buttonText);
 			}
 
 			virtual void setText(const std::string& newText) {

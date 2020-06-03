@@ -1,5 +1,5 @@
 #include "VolumeSlider.h"
-#include "..//Asset Manager//AssetManager.cpp"
+#include "..//Asset Manager//AssetManager.h"
 #include "..//Math stuff//Math.h"
 
 //Volume stuff comment lol

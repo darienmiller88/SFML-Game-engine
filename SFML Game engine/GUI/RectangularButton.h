@@ -3,17 +3,21 @@
 
 class RectangularButton : public dm::Button<sf::RectangleShape>{
 	public:
+		RectangularButton(const sf::Text &text, bool isUsingRounded);
+
 		/*
 		* \brief Constructor to create a button using a tuple containing three different colors.
 		*
 		* \param text - The text that will reside on the button.
+		* \param position - initial position of the button
 		* \param colorPack - A tuple that will contain all of the colors relevant to the button functionality.
 		* - The first element is the default color of the button when the mouse pointer is not interacting with it
 		* - The second element is the color the button will change to when the mouse pointer hovers over it
 		* - The third element is the color the button will change to when the mouse pointer clicks on it
-		* \param position - initial position of the button
+		* This color pack will default to white for each element
 		*/
-		RectangularButton(const sf::Text &text, const dm::ColorPack &colorPack, const sf::Vector2f &position);
+		RectangularButton(const sf::Text &text, const sf::Vector2f &position, bool isUsingRounded,
+			const dm::ColorPack &colorPack = {sf::Color::White, sf::Color::White , sf::Color::White });
 
 		/*
 		* \brief Constructor to create a button using a tuple containing three different textures.
@@ -25,7 +29,7 @@ class RectangularButton : public dm::Button<sf::RectangleShape>{
 		* - The third element is the texture the button will change to when the mouse pointer clicks on it
 		* \param position - initial position of the button
 		*/
-		RectangularButton(const sf::Text &text, const dm::TexturePack &tPack, const sf::Vector2f &position);
+		RectangularButton(const sf::Text &text, const dm::TexturePack &tPack, const sf::Vector2f &position, bool isUsingRounded);
 
 		/*
 		* \brief function to handle the various interactions the mouse pointer will have with the button. For optimal use,
@@ -44,15 +48,22 @@ class RectangularButton : public dm::Button<sf::RectangleShape>{
 		*/
 		void setResizingScale(const sf::Vector2f &newScale) override;
 
+		void drawButton(sf::RenderWindow &window) override;
 		void setText(const std::string &newText) override;
+		void setPosition(const sf::Vector2f &position);
 		void setTextCharactersize(uint32_t charSize) override;
+		void setColorPack(const dm::ColorPack &colorPack);
+		void setTexturePack(const dm::TexturePack &texturePack);
 		void setOutlineThickness(float thickness);
 		void setOutlineColor(const sf::Color &color);
-		const sf::Vector2f getButtonSize() const;
+		const sf::Vector2f &getButtonSize() const;
+		const sf::RectangleShape &getButtonBody() const;
 	private:
 		void changeButtonSize();
+		void makeRoundedButton(bool isUsingRounded, const sf::Vector2f &position);
 	private:
-		bool isUsingColors, isUsingTextures;
+		bool isUsingColors, isUsingTextures, isUsingRounded;
 		sf::Texture defaultTexture, hoverTexture, clickTexture;
 		sf::Color defaultColor, hoverColor, clickColor;
+		sf::CircleShape buttonLeft, buttonRight;
 };

@@ -12,7 +12,6 @@ class Animation{
 		Animation(const std::string &textureFileName, float spriteTimeLength, const sf::Vector2u &numSprites);
 		void updateSprites(float deltaTime);
 		void applyToSprite(sf::Sprite &sprite);
-
 	private:
 		sf::Clock clock;
 		sf::Texture spriteTexture;

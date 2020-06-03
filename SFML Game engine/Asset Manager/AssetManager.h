@@ -1,9 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
+#include <iostream>
 #include "..//Utilities/NonMovable.h"
 #include "..//Utilities/NonCopyable.h"
-//#include "..//Utilities/Font string names.h"
 
 enum class Fonts {
 	AMATIC_BOLD, AMATIC_SC, ARCADE_I,

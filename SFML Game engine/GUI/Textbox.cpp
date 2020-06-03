@@ -4,9 +4,13 @@
 
 //This comment is a change made from my desktop and pushed by git!
 Textbox::Textbox(const sf::Vector2f &initialSize, const sf::Vector2f &position, const sf::Font &font,
-const std::string &text) : OUTLINE_THICKNESS(5.f), FRAME_LIMIT(500), textBox(initialSize), defaultText(text, font, 45), 
-typedText("", font, 45), backgroundTextBox({initialSize.x + OUTLINE_THICKNESS, initialSize.y + OUTLINE_THICKNESS}),
-cursor({ 1.f, initialSize.y * 0.75f }), onEnterCallback([]() {}) {
+const std::string &text) : textBox(initialSize), defaultText(text, font, FONT_SIZE), typedText("", font, FONT_SIZE), 
+backgroundTextBox({initialSize.x + OUTLINE_THICKNESS, initialSize.y + OUTLINE_THICKNESS}),
+cursor({ 1.f, initialSize.y * 0.75f }), onEnterCallback([]() {}), word("")
+{
+	//using a text object with only one character, we will use it to determine how wide one character is.
+	characterWidth = sf::Text("d", font, FONT_SIZE).getGlobalBounds().width;
+	maxCharLimit = textBox.getGlobalBounds().width / characterWidth;
 
 	//set the colors of the text, textbox, and the "outline".
 	defaultBoxColor = sf::Color(200, 200, 200);//light gray
@@ -23,17 +27,21 @@ cursor({ 1.f, initialSize.y * 0.75f }), onEnterCallback([]() {}) {
 	backgroundTextBox.setPosition(getCenterPosition(textBox));
 	cursor.setPosition(textBox.getPosition().x + 10.f, getCenterPosition(textBox).y);
 	defaultText.setPosition(getRightEdge(cursor), textBox.getPosition().y);
-	typedText.setPosition(getRightEdge(cursor), defaultText.getPosition().y);
+	typedText.setPosition(getRightEdge(cursor), textBox.getPosition().y);
 
 	textBox.setFillColor(defaultBoxColor);
 	backgroundTextBox.setFillColor(sf::Color(0, 0, 0, 0));
 	cursor.setFillColor(sf::Color::Black);
 	defaultText.setFillColor(textColor);
 	typedText.setFillColor(sf::Color(0, 0, 0, 0));
+	
+	//std::cout << "size x: " << getSize(defaultText).x << " size y: " << getSize(defaultText).y << "\n";
+	sf::Text temp("d", font, FONT_SIZE);
+	temp.setScale(textBox.getSize().x / (getSize(temp).x * 2.f), textBox.getSize().y / (getSize(temp).y * 2.f));
 
 	//Set the default text to half as tall as the textbox, and half as wide
-	defaultText.setScale(textBox.getSize().x / (getSize(defaultText).x * 2.f), textBox.getSize().y / (getSize(defaultText).y * 2.f));
-	typedText.setScale(defaultText.getScale());	
+	defaultText.setScale(temp.getScale());
+	typedText.setScale(temp.getScale());	
 }
 
 void Textbox::drawTextBox(sf::RenderWindow &window){
@@ -50,6 +58,10 @@ void Textbox::setTextColor(const sf::Color &textColor){
 
 void Textbox::setTypedText(const sf::Color &textColor){
 	typedTextColor = textColor;
+}
+
+void Textbox::setCharacterLimit(int charLimit){
+	this->charLimit = constrain(charLimit, 1, maxCharLimit);
 }
 
 void Textbox::setHoverColor(const sf::Color &hoverColor){
@@ -101,6 +113,7 @@ void Textbox::eventHandler(const sf::RenderWindow &window, sf::Event e){
 		backgroundTextBox.setFillColor(sf::Color(0, 0, 0, 0));
 	}
 
+
 	handleText(e);
 }
 
@@ -115,6 +128,7 @@ void Textbox::drawCursor(sf::RenderWindow &window){
 	if (numFrames <= FRAME_LIMIT and isTextBoxClicked) {
 		cursor.setFillColor(sf::Color::Black);
 		window.draw(cursor);
+		//std::cout << "drawing?\n";
 	}
 
 	//for another n frames, make the cursor completely transparent so that it appears as if it isn't being drawn.
@@ -134,9 +148,11 @@ void Textbox::handleText(sf::Event e){
 		defaultText.setFillColor(sf::Color(0, 0, 0, 0));
 		typedText.setFillColor(typedTextColor);
 
+		//std::cout << (char)e.text.unicode << "\n";
 		//Once the text has reached the end of the textbox, prevent the user from typing anymore characters.
-		if (getRightEdge(typedText) < getRightEdge(textBox)) 
+		if (word.size() < charLimit) {
 			word += e.text.unicode;
+		}
 	}
 
 	else if (e.type == sf::Event::KeyPressed and isTextBoxClicked) {

@@ -36,7 +36,6 @@ void Animation::updateSprites(float deltaTime){
 		if (++currentFrame >= spriteRects.size())
 			currentFrame = 0;
 	}
-
 }
 
 void Animation::applyToSprite(sf::Sprite &sprite){

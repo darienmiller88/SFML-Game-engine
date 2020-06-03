@@ -1,19 +1,14 @@
 #include "StateManager.h"
-#include "C:\Users\Darien Miller\Desktop\Visual studio projets\New Frogger\Game.h"
+#include "../../TitleState.h"
 
 StateManager::StateManager(int windowWidth, int windowHeight, const std::string &title) : gameIsRunning(true), 
-window(sf::VideoMode(windowWidth, windowHeight), title, sf::Style::Close | sf::Style::Titlebar){
-	states.push(std::move(std::make_unique<Game>(windowWidth, windowHeight)));
+window(sf::VideoMode(windowWidth, windowHeight), title, sf::Style::Close | sf::Style::Titlebar), FPS({ 0.f,0.f }) {
+	states.push(std::make_unique<TitleState>(sf::Vector2u(windowWidth, windowHeight), *this));
 }
 
 void StateManager::runGame(){
-	sf::Time lastTime = sf::Time::Zero, delta;
-
+	window.setFramerateLimit(60);
 	while (window.isOpen() and gameIsRunning) {
-		sf::Time current = clock.getElapsedTime();
-		delta = current - lastTime;
-		lastTime = current;
-
 		sf::Event e;
 		while (window.pollEvent(e)) {
 			if (e.type == sf::Event::Closed)
@@ -21,13 +16,12 @@ void StateManager::runGame(){
 			states.top()->handleInput(*this, e, window);
 		}
 		
-		FPS.calculate();
-
 		window.clear();
-		states.top()->update(delta);
+		states.top()->update(FPS.getDeltaTime());
 		states.top()->drawState(window);
-		//FPS.draw(window);
+		FPS.draw(window);
 		window.display();
+		FPS.calculate();
 	}
 
 	//clean up remaining gamestates!

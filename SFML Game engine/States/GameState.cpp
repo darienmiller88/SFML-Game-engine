@@ -1,7 +1,7 @@
 #include "GameState.h"
 #include "StateManager.h"
 
-GameState::GameState()
+GameState::GameState(const sf::Vector2u &windowSize, StateManager &manager)
 {
 }
 

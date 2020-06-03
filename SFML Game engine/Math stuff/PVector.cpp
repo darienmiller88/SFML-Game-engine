@@ -70,7 +70,7 @@ float PVector::getAngle() const{
 }
 
  std::string PVector::toString() const{
-	return "PVector Object : [" +std::to_string(x) + "," + std::to_string(x) + "]";
+	return "PVector Object: [" +std::to_string(x) + "," + std::to_string(x) + "]";
 }
 
 void PVector::calcMagnitude(float newX, float newY){

@@ -14,6 +14,11 @@ class Textbox{
 		void setTextColor(const sf::Color &textColor);//Set the color of the text to any desired colored.
 		void setTypedText(const sf::Color &textColor);//Set the color of the text that will be typed.
 		void setOutlineColor(const sf::Color &outlineColor);
+
+		//Set the max character limit for the textbox. The value will constrained to 1 and the max number of characters
+		//that can fit in the textbox.
+		void setCharacterLimit(int charLimit);
+
 		//Set the color that the textbox changes to when the moves hovers over it
 		void setHoverColor(const sf::Color &hoverColor);
 		
@@ -28,10 +33,11 @@ class Textbox{
 		void drawCursor(sf::RenderWindow &window);
 		void handleText(sf::Event e);
 	private:
-		const int FRAME_LIMIT;
-		const float OUTLINE_THICKNESS;
+		const int FRAME_LIMIT = 50, FONT_SIZE = 45;
+		const float OUTLINE_THICKNESS = 5.f;
+		float characterWidth;
 		sf::Color hoverColor, defaultBoxColor, outlineColor, textColor, typedTextColor;
-		int numFrames = 0;
+		int numFrames = 0, charLimit = 0, maxCharLimit = 0;
 		bool isTextBoxClicked = false, isCharLimitReached = false;
 		sf::RectangleShape cursor, textBox;
 

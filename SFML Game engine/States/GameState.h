@@ -2,19 +2,21 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include "../Math stuff/Math.h"
+
 
 class StateManager;
 
 class GameState{
 	public:
-		GameState();
+		GameState(const sf::Vector2u &windowSize, StateManager &manager);
 
 		virtual ~GameState();
 
 		//display the state to the screen
 		virtual void drawState(sf::RenderWindow &window) = 0;
 
-		virtual void update(const sf::Time &deltaTime) = 0;
+		virtual void update(float deltaTime) = 0;
 
 		//function to allow a gamestate to pause while another gamestate is running
 		virtual void pause() = 0;
@@ -28,8 +30,8 @@ class GameState{
 		
 	protected:
 		//Utility function to read and error handle a file into a texture.
-		template<class type>
-		void tryToReadFile(type &texture, const std::string &fileName);
+		template<class SFML_OBJECT>
+		void tryToReadFile(SFML_OBJECT &texture, const std::string &fileName);
 		
 		//Function to let each gamestate signal to the gamestate manager to switch to another gamestate.
 		void changeState(StateManager &manager, const std::unique_ptr<GameState> &state);
@@ -42,8 +44,8 @@ class GameState{
 		
 };
 
-template<class type>
-inline void GameState::tryToReadFile(type &texture, const std::string &fileName){
+template<class SFML_OBJECT>
+inline void GameState::tryToReadFile(SFML_OBJECT &texture, const std::string &fileName){
 	if (!texture.loadFromFile(fileName)) {
 		std::cout << "Cannot read from file!\n";
 		exit(1);
