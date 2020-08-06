@@ -77,6 +77,11 @@ void AssetManager::addTexture(const std::string &textureKey, const std::string &
 }
 
 const sf::Texture &AssetManager::getTexture(const std::string &textureKey) const{
+	if (textures.find(textureKey) == textures.end()) {
+		std::cout << "texture for key: " << textureKey << " not found\n";
+		return sf::Texture();
+	}
+
 	return textures.at(textureKey);
 }
 

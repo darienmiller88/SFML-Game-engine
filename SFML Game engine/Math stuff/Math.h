@@ -8,13 +8,16 @@ constexpr float MIN_PI = 3.14f;
 constexpr float HALF_PI = 1.57079632679489661923f;
 constexpr float QUARTER_PI = 0.7853982f;
 
+/**
+* Function to return the size of an object 
+*/
 template<class SFML_OBJECT>
 sf::Vector2f getSize(const SFML_OBJECT &object) {
 	return sf::Vector2f(object.getGlobalBounds().width, object.getGlobalBounds().height);
 }
 
 /*
-* Function to return the position of the center of a SFML object
+* Function to return the position of the center of a SFML object relative to its current position
 */
 template<class SFML_OBJECT>
 sf::Vector2f getHalfSize(const SFML_OBJECT &object) {
@@ -31,20 +34,18 @@ float getRightEdge(const SFML_OBJECT &object) {
 
 /*
 * Function to return the position of the bottom edge of a SFML object
-*
-* return the position of the bottom edge of tge
 */
 template<class SFML_OBJECT>
-float getBottomEdge(const SFML_OBJECT&object) {
+float getBottomEdge(const SFML_OBJECT &object) {
 	return object.getPosition().y + object.getGlobalBounds().height;
 }
 
 /*
-* Function to return the position of the center of a SFML object
+* Function to return the position of the center of a SFML object relative to its current position
 */
 template<class SFML_OBJECT>
 sf::Vector2f getCenterPosition(const SFML_OBJECT &object) {
-	return object.getPosition() + sf::Vector2f(object.getGlobalBounds().width / 2.f, object.getGlobalBounds().height / 2.f);
+	return object.getPosition() + getHalfSize(object);
 }
 
 /**

@@ -16,6 +16,6 @@ class FrameRate{
 		sf::Int32 delta;
 		sf::Text fpsText;
 		int frameRate, frameCount;
-		float timeBetweenFrames;
+		float frameLength;
 };
 

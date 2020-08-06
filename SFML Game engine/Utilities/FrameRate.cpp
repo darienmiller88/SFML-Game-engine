@@ -1,8 +1,8 @@
 #include "FrameRate.h"
-#include "..//Asset Manager/AssetManager.h"
+#include "..//Asset Manager//AssetManager.h"
 #include <string>
 
-FrameRate::FrameRate(const sf::Vector2f &position) : frameCount(0), frameRate(0), delta(0), timeBetweenFrames(0),
+FrameRate::FrameRate(const sf::Vector2f &position) : frameCount(0), frameRate(0), delta(0), frameLength(0.f),
 lastTime(sf::Time::Zero), fpsText("FPS: 0", AssetManager::get().getDefaultFont(Fonts::ARIAL_ITALIC))
 {
 	fpsText.setPosition(position);
@@ -11,7 +11,7 @@ lastTime(sf::Time::Zero), fpsText("FPS: 0", AssetManager::get().getDefaultFont(F
 
 void FrameRate::calculate(){
 	sf::Time current = clock.getElapsedTime();
-	timeBetweenFrames = (current - lastTime).asSeconds();
+	frameLength = (current - lastTime).asSeconds();
 	delta += (current - lastTime).asMilliseconds();
 	lastTime = current;
 	frameCount++; 
@@ -29,7 +29,7 @@ void FrameRate::draw(sf::RenderWindow &window){
 }
 
 float FrameRate::getDeltaTime() const{
-	return timeBetweenFrames;
+	return frameLength;
 }
 
 std::ostream &operator<<(std::ostream &os, const FrameRate &f){

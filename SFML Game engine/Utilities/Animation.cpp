@@ -2,7 +2,7 @@
 #include <iostream>
 
 Animation::Animation(const std::string &textureFileName, float spriteTimeLength, const sf::Vector2u &numSprites) : 
-SPRITE_LENGTH_TIME(spriteTimeLength), currentFrame(0){
+SPRITE_LENGTH_TIME(spriteTimeLength), currentFrame(0), isUsingSpriteSheet(true){
 
 	if (!spriteTexture.loadFromFile(textureFileName)) {
 		std::cout << "File: " << textureFileName << " cannot be opened. Exiting program\n";
@@ -27,6 +27,10 @@ SPRITE_LENGTH_TIME(spriteTimeLength), currentFrame(0){
 	std::cout << spriteRects.size() << "\n";
 }
 
+Animation::Animation(const std::vector<sf::Texture>& textures, float spriteTimeLength) : SPRITE_LENGTH_TIME(spriteTimeLength), 
+isUsingSpriteSheet(false), currentFrame(0), textures(textures){
+}
+
 void Animation::updateSprites(float deltaTime){
 	currentTime = clock.getElapsedTime().asSeconds();
 
@@ -39,6 +43,11 @@ void Animation::updateSprites(float deltaTime){
 }
 
 void Animation::applyToSprite(sf::Sprite &sprite){
-	sprite.setTexture(spriteTexture);
-	sprite.setTextureRect(spriteRects[currentFrame]);
+	if (isUsingSpriteSheet) {
+		sprite.setTexture(spriteTexture);
+		sprite.setTextureRect(spriteRects[currentFrame]);
+	}
+	else {
+		sprite.setTexture(textures[currentFrame]);
+	}
 }

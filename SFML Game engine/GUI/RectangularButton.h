@@ -1,6 +1,7 @@
 #pragma once
 #include "Button.h"
 
+//NOTE: origin is set to the middle, not the top left!
 class RectangularButton : public dm::Button<sf::RectangleShape>{
 	public:
 		RectangularButton(const sf::Text &text, bool isUsingRounded);

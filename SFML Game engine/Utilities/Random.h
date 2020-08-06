@@ -4,19 +4,15 @@
 
 class Random{
 	public:
-		Random();
+		Random() : rnGen(seed()) {
+
+		}
 
 		template<class Type>
-		Type getIntInRange(Type min, Type max);
-
-		double getDoubleInRange(double min, double max);
-		float getFloatInRange(float min, float max);
+		Type getNumberInRange(Type min, Type max) {
+			return std::uniform_int_distribution<Type>(min, max)(rnGen);
+		}
 	private:
 		std::random_device seed;
 		std::default_random_engine rnGen;
 };
-
-template<class Type>
-inline Type Random::getIntInRange(Type min, Type max){
-	return std::uniform_int_distribution<Type>(min, max - 1)(rnGen);
-}

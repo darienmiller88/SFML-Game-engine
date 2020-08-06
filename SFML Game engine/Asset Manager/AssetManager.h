@@ -62,10 +62,9 @@ class AssetManager : public NonCopyable, NonMovable {
 		void unloadTextures();
 		void loadTextures();
 		static AssetManager &get();
-
+	private:
 		template<class type>
 		void tryToReadFile(type& texture, const std::string &fileName);
-	private:
 		void loadDefaultFonts();
 		AssetManager();
 	private:
